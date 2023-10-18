@@ -1,10 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Images/amazon.png";
 
 const Navbar = () => {
-
+    const navigate = useNavigate();
 
     const handleSignUp = () =>{
-        
+        navigate("/auth")
     }
 
   return (
@@ -23,7 +24,7 @@ const Navbar = () => {
           <div>
             <p className="text-white text-2xl p-4">Provide Service</p>
           </div>
-          <div onClick={handleSignUp}>
+          <div onClick={handleSignUp} className="hover:bg-black">
             <p className="text-white text-2xl p-4">signUp</p>
           </div>
         </div>
