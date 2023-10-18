@@ -1,17 +1,17 @@
-import Login from "./Pages/Authentication/Login";
-import Register from "./Pages/Authentication/Register";
-import Home from "./Pages/Home";
-import ServiceRegistrationForm from "./Pages/ServiceRegistrationForm";
-
+import Home from "./Components/Home/Home";
+import {BrowserRouter,Routes,Route} from "react-router-dom"
+import UserAuth from "./Components/Auth/UserAuth";
+import Profile from "./Components/Profile/Profile";
 
 function App() {
   return (
-    <div className="">
-      <Login />
-      <Register />
-      <Home />
-      <ServiceRegistrationForm />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/auth" element={<UserAuth/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
