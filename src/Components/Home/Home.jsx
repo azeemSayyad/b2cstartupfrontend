@@ -1,9 +1,10 @@
 import Navbar from '../Common/Navbar'
-
+import Content from '../Content/Content';
 const Home = () => {
   return (
     <>
-        <Navbar/>
+      <Navbar/>
+      <Content/>
     </>
   )
 }
