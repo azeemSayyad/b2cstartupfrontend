@@ -1,6 +1,12 @@
 import logo from "../../assets/Images/amazon.png";
 
 const Navbar = () => {
+
+
+    const handleSignUp = () =>{
+        
+    }
+
   return (
     <div className="w-full min-w-[384px] h-[60px] max-w-[2400px] bg-stone-900">
       <div className="flex justify-between">
@@ -17,7 +23,7 @@ const Navbar = () => {
           <div>
             <p className="text-white text-2xl p-4">Provide Service</p>
           </div>
-          <div>
+          <div onClick={handleSignUp}>
             <p className="text-white text-2xl p-4">signUp</p>
           </div>
         </div>
