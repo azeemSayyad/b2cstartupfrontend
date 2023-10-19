@@ -7,11 +7,14 @@ function App() {
   return (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div className="">
       <Home/>
       
     </div>
 =======
+=======
+>>>>>>> deaf5c09c383502a80ba0052e00b74bf468cad11
 =======
 >>>>>>> deaf5c09c383502a80ba0052e00b74bf468cad11
     <BrowserRouter>
@@ -22,6 +25,9 @@ function App() {
       </Routes>
     </BrowserRouter>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> deaf5c09c383502a80ba0052e00b74bf468cad11
+=======
 >>>>>>> deaf5c09c383502a80ba0052e00b74bf468cad11
 =======
 >>>>>>> deaf5c09c383502a80ba0052e00b74bf468cad11
