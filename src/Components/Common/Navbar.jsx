@@ -14,6 +14,10 @@ const Navbar = () => {
     setShowMenu(false);
   };
 
+  const registerService = ()=>{
+    navigate("/registerService")
+  }
+
   return (
     <div className="w-full bg-black p-4">
       <div className="flex items-center justify-between px-4 sm:px-6">
@@ -31,7 +35,9 @@ const Navbar = () => {
             <div className="text-white text-base sm:text-lg p-2 hover:scale-110 transform duration-300">
               <p>Advertise</p>
             </div>
-            <div className="text-white text-base sm:text-lg p-2 hover:scale-110 transform duration-300">
+            <div 
+            onClick={registerService}
+            className="text-white text-base sm:text-lg p-2 hover:scale-110 transform duration-300" >
               <p>Provide Service</p>
             </div>
           </div>

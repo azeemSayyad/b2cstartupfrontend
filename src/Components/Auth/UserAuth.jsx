@@ -1,5 +1,15 @@
-import { useEffect, useState } from "react";
 import microsoft from "../../assets/Images/microsoft.jpg";
+
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../state/index";
+
+import { Input } from "@material-tailwind/react";
+
+const BASE_URL = "http://localhost:4000";
 
 const UserAuth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -9,6 +19,8 @@ const UserAuth = () => {
     contact: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,21 +31,54 @@ const UserAuth = () => {
   };
 
   const handleLogin = async () => {
-    console.log(formData);
-    
-    formData.name = '';
-    formData.contact = '';
-    formData.password = '';
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/login`, {
+        contact: formData.contact,
+        password: formData.password,
+      });
+      console.log(response);
+
+      dispatch(setLogin(response.data));
+
+      navigate("/");
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+    resetForm();
   };
 
   const handleRegister = async () => {
-    
-    formData.name = '';
-    formData.contact = '';
-    formData.password = '';
+    try {
+      const resp = await axios.post(`${BASE_URL}/auth/userRegistration`, {
+        name: formData.name,
+        contact: formData.contact,
+        password: formData.password,
+      });
+      console.log(resp);
+      setIsSignUp(!isSignUp);
+    } catch (error) {
+      console.log(error);
+    }
+    resetForm();
   };
 
-  const handleForgot = async () => {};
+  const handleForgot = async () => {
+    try {
+      const contact = formData.contact;
+      const response = await axios.patch(
+        `${BASE_URL}/auth/resetPassword/${contact}`,
+        {
+          newPassword: formData.password,
+        }
+      );
+      console.log(response);
+      setIsForgot(false);
+      resetForm();
+    } catch (error) {
+      console.log(error);
+      resetForm();
+    }
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -42,73 +87,78 @@ const UserAuth = () => {
     else await handleLogin();
   };
 
-  useEffect(()=>{
-    formData.name = '';
-    formData.contact = '';
-    formData.password = '';
-  },[isSignUp])
+  const resetForm = () => {
+    formData.name = "";
+    formData.contact = "";
+    formData.password = "";
+  };
+
+  const handleIsSignUp = () => {
+    setIsSignUp(!isSignUp);
+    resetForm();
+  };
 
   return (
     <div className=" bg-purple-700 w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
-      <div className="m-auto md:w-[50%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
+      <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
             src={microsoft}
             className=" h-[60px] object-cover object-center mb-[-10px]"
             alt="logo"
           />
-          <p className="block font-bold text-3xl text-center text-black">
-          {isSignUp ? "Register Account" : "Login to your account"}
+            <p className="block font-bold text-3xl text-center text-black">
+            {isSignUp ? "Unlock services with a quick registration" :isForgot? "Change Your Password":"Access services right from home – log in now!"}
           </p>
-          <p className="text-center">
-            {isSignUp
-              ? "Already have an account?"
-              : "Don't have an account yet?"}
-            <span
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="ml-1 text-purple-800 hover:text-purple-950 hover:cursor-pointer text-lg"
-            >
-              {isSignUp ? "SignIn" : "signUp"}
-            </span>
-          </p>
+          
+          {!isForgot && (
+            <p className="text-center">
+              {isSignUp
+                ? "Already have an account?"
+                : "Don't have an account yet?"}
+              <span
+                onClick={handleIsSignUp}
+                className="ml-1 text-purple-800 hover:text-purple-950 hover:cursor-pointer text-lg"
+              >
+                {isSignUp ? "SignIn" : "signUp"}
+              </span>
+            </p>
+          )}
         </div>
 
         <form onSubmit={handleFormSubmit}>
           <div className="md:w-[70%] w-[90%] m-auto space-y-3">
-            <div className="flex flex-col justify-center items-center ">
+            <div className="flex flex-col justify-center items-center space-y-4">
               {isSignUp && (
-                <input
-                  placeholder="Your Name"
+                <Input
+                label="name"
                   name="name"
                   onChange={handleChange}
                   value={formData.name}
-                  className="p-2 rounded-lg border w-full border-black my-3"
                 />
               )}
-              <input
-                placeholder="Phone Number"
+              <Input
+                label="Phone Number"
                 name="contact"
-                value={formData.contact}
                 onChange={handleChange}
-                className="p-2 rounded-lg border w-full border-black my-3"
+                value={formData.contact}
               />
-              <input
-                placeholder="Password"
+              <Input
+                label={isForgot ? "New Password" : "Password"}
                 name="password"
                 onChange={handleChange}
                 value={formData.password}
-                className="p-2 rounded-lg border w-full border-black my-3"
               />
             </div>
 
-            {!isSignUp && (
+            {!isSignUp && !isForgot && (
               <div className="flex justify-between">
                 <div className="space-x-2">
                   <input type="checkbox" name="check" />
                   <label for="check">Remember me</label>
                 </div>
                 <p
-                  onClick={() => setIsForgot(!true)}
+                  onClick={() => setIsForgot(!isForgot)}
                   className="text-purple-800 hover:text-purple-950 hover:cursor-pointer"
                 >
                   Forgot password?
@@ -119,7 +169,7 @@ const UserAuth = () => {
               <input
                 type="submit"
                 className="bg-purple-800 hover:bg-purple-900 w-full p-2 text-center text-white text-lg rounded-md hover:cursor-pointer"
-                value={isSignUp ? "Register" : "Login"}
+                value={isSignUp ? "Register" :isForgot? "Reset Password":"login"}
               />
             </div>
           </div>
