@@ -8,8 +8,12 @@ const Navbar = () => {
         navigate("/auth")
     }
 
+    const registerService = ()=>{
+      navigate("/registerService")
+    }
+
   return (
-    <div className="w-full min-w-[384px] h-[60px] max-w-[2400px] bg-stone-900">
+    <div className="w-full min-w-[384px] h-[60px] max-w-[2400px] bg-stone-900 bg-black text-white">
       <div className="flex justify-between">
         {/**Left container */}
         <div className="p-4 ">
@@ -21,7 +25,7 @@ const Navbar = () => {
           <div>
             <p className="text-white text-2xl p-4">Advertise</p>
           </div>
-          <div>
+          <div onClick={registerService}>
             <p className="text-white text-2xl p-4">Provide Service</p>
           </div>
           <div onClick={handleSignUp} className="hover:bg-black">
