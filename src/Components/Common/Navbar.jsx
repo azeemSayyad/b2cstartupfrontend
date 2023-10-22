@@ -14,13 +14,14 @@ const Navbar = () => {
     setShowMenu(false);
   };
 
-  const registerService = ()=>{
-    navigate("/registerService")
-  }
+  const registerService = () => {
+    navigate("/registerService");
+  };
 
   return (
-    <div className="w-full bg-black p-4">
-      <div className="flex items-center justify-between px-4 sm:px-6">
+    <div className="w-full bg-black p-4 flex items-center justify-between">
+      {/* Left container */}
+      <div className="flex items-center">
         <div className="py-2">
           <img
             className="w-[100px] sm:w-[150px] h-auto object-contain"
@@ -28,40 +29,40 @@ const Navbar = () => {
             alt="logo"
           />
         </div>
+      </div>
 
-        {/* Right container */}
-        <div className={`ml-auto sm:mr-0 sm:ml-auto`}>
-          <div className="hidden sm:flex space-x-4">
-            <div className="text-white text-base sm:text-lg p-2 hover:scale-110 transform duration-300">
-              <p>Advertise</p>
-            </div>
-            <div 
-            onClick={registerService}
-            className="text-white text-base sm:text-lg p-2 hover:scale-110 transform duration-300" >
-              <p>Provide Service</p>
-            </div>
+      {/* Right container */}
+      <div className="flex items-center">
+        <div className="hidden sm:flex space-x-4">
+          <div className="text-white text-base sm:text-lg p-2 hover:scale-110 transform duration-300">
+            <p>Advertise</p>
           </div>
-          <div className="flex space-x-4">
-            <div
-              onClick={handleSignUp}
-              className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded cursor-pointer transition duration-300 ease-in-out"
-            >
-              <p className="text-base sm:text-lg p-2">Sign Up</p>
-            </div>
-            <div
-              className={`sm:hidden text-white`}
-              onClick={() => setShowMenu(!showMenu)}
-            >
-              {/* Updated hamburger menu icon */}
-              <div className="flex items-center">
-                <div className="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center">
-                  <div className="w-3 h-3 bg-transparent border-2 border-white rounded-full"></div>
-                </div>
-              </div>
+          <div
+            onClick={registerService}
+            className="text-white text-base sm:text-lg p-2 hover:scale-110 transform duration-300"
+          >
+            <p>Provide Service</p>
+          </div>
+        </div>
+        <div
+          onClick={handleSignUp}
+          className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded cursor-pointer transition duration-300 ease-in-out ml-4"
+        >
+          <p className="text-base sm:text-lg">Sign Up</p>
+        </div>
+        <div
+          className={`sm:hidden text-white ml-4`}
+          onClick={() => setShowMenu(!showMenu)}
+        >
+          {/* Updated hamburger menu icon */}
+          <div className="flex items-center">
+            <div className="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center">
+              <div className="w-3 h-3 bg-transparent border-2 border-white rounded-full"></div>
             </div>
           </div>
         </div>
       </div>
+
       {/* Mobile menu component */}
       {showMenu && (
         <div
