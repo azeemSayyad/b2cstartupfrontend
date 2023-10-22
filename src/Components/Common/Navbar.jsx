@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Images/amazon.png";
-import menuIcon from "../../Icons/menuIcon.svg" // Assuming the location of your SVG icon
+import menuIcon from "../../Icons/menuIcon.svg" 
 
 const Navbar = () => {
   const navigate = useNavigate();
