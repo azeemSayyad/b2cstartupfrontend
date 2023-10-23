@@ -1,17 +1,15 @@
 import Navbar from '../Common/Navbar'
-import Content from '../Common/Content'
 import Footer from '../Common/Footer'
-import Carousel from '../Common/Carousel'
+import Categories from './Categories'
 
 const Home = () => {
   return (
-    <>
+    <div className="flex flex-col  min-w-[384px] max-w-[1500px] maxi:m-auto">
         <Navbar/>
         
-        <Content/>
-        <Carousel/>
+        <Categories/>
         <Footer/>
-    </>
+    </div>
   )
 }
 

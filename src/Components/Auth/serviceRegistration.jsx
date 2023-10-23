@@ -9,8 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 const ServiceRegistration = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
   const navigate = useNavigate();
+  const {_id} = useSelector((state)=>state.user)
+  console.log(_id)
 
   const [formData, setFormData] = useState({
     name: "azeem",
@@ -75,14 +76,19 @@ const ServiceRegistration = () => {
 
   const handleSubmit = async () => {
     try {
+      const professionList = [];
+      for(let option of selectedProfessionOptions){
+        let field = option.field.toLowercase();
+        professionList.push(field);
+      }
       const body = {
-        user_id: "6530fa8af8bd641ce0bfad02",
-        profession: selectedProfessionOptions,
+        user_id: _id,
+        profession: professionList,
         experience: selectedExperienceOption[0].exp,
         about: formData.about,
         location: formData.location,
       };
-      console.log(body,selectedExperienceOption)
+      console.log(body)
       const resp = await axios.post(
         "http://localhost:4000/auth/serviceRegistration",
         { body }

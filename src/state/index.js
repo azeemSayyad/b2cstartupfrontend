@@ -19,9 +19,14 @@ const slice = createSlice({
         setServiceDetails: (state,action)=>{
             console.log(action.payload);
             state.serviceDetails = action.payload
+        },
+        setLogout:(state)=>{
+            state.user = null;
+            state.token = null;
+            state.profilePictureURL = null;
         }
     }
 })
 
 export default slice.reducer;
-export const {setLogin,setServiceDetails} = slice.actions;
+export const {setLogin,setServiceDetails,setLogout} = slice.actions;

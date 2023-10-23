@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Images/amazon.png";
 import menuIcon from "../../Icons/menuIcon.svg" 
+import { useDispatch, useSelector } from "react-redux";
+import { setLogout } from "../../state";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const isToken = Boolean(useSelector((state) => state.token));
+  const dispatch  = useDispatch();
 
   const handleSignUp = () => {
     navigate("/auth");
@@ -19,8 +23,13 @@ const Navbar = () => {
     navigate("/registerService");
   };
 
+  const logout = ()=>{
+    dispatch(setLogout());
+    navigate("/auth")
+  }
+
   return (
-    <div className="w-full bg-black p-4 relative">
+    <div className="w-full bg-purple-500 h-[60px] relative min-w-[384px]">
       {/* Background Overlay */}
       {showMenu && (
         <div
@@ -34,7 +43,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <div className="py-2">
             <img
-              className="w-[100px] sm:w-[150px] h-auto object-contain"
+              className="w-[100px] ml-2 sm:w-[150px] h-auto object-contain"
               src={logo}
               alt="logo"
             />
@@ -55,10 +64,10 @@ const Navbar = () => {
             </div>
           </div>
           <div
-            onClick={handleSignUp}
+            onClick={isToken?logout:handleSignUp}
             className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded cursor-pointer transition duration-300 ease-in-out ml-4"
           >
-            <p className="text-base sm:text-lg">Sign Up</p>
+            <p className="text-base sm:text-lg">{isToken?"Log out":"SignUp"}</p>
           </div>
           <div
             className={`sm:hidden text-white ml-4`}

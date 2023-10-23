@@ -1,5 +1,7 @@
 import microsoft from "../../assets/Images/microsoft.jpg";
 
+import { CgSpinner } from "react-icons/cg";
+
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +16,10 @@ const BASE_URL = "http://localhost:4000";
 const UserAuth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isForgot, setIsForgot] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -32,38 +38,49 @@ const UserAuth = () => {
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.post(`${BASE_URL}/auth/login`, {
         contact: formData.contact,
         password: formData.password,
       });
       console.log(response);
-
+      setIsLoading(false);
+      console.log(isLoading);
       dispatch(setLogin(response.data));
+      setErrorMessage(null);
 
       navigate("/");
     } catch (error) {
-      console.log(error.response.data.message);
+      setIsLoading(false);
+      console.log(error);
+      setErrorMessage(error.response.data.message);
     }
     resetForm();
   };
 
   const handleRegister = async () => {
     try {
+      setIsLoading(true);
       const resp = await axios.post(`${BASE_URL}/auth/userRegistration`, {
         name: formData.name,
         contact: formData.contact,
         password: formData.password,
       });
       console.log(resp);
+      setIsLoading(false);
       setIsSignUp(!isSignUp);
+      setErrorMessage(null);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
+      setErrorMessage(error.response.data.message);
     }
     resetForm();
   };
 
   const handleForgot = async () => {
     try {
+      setIsLoading(true);
       const contact = formData.contact;
       const response = await axios.patch(
         `${BASE_URL}/auth/resetPassword/${contact}`,
@@ -72,9 +89,11 @@ const UserAuth = () => {
         }
       );
       console.log(response);
+      setIsLoading(false);
       setIsForgot(false);
       resetForm();
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
       resetForm();
     }
@@ -94,7 +113,9 @@ const UserAuth = () => {
   };
 
   const handleIsSignUp = () => {
+    setErrorMessage(null);
     setIsSignUp(!isSignUp);
+    setIsLoading(false)
     resetForm();
   };
 
@@ -107,10 +128,14 @@ const UserAuth = () => {
             className=" h-[60px] object-cover object-center mb-[-10px]"
             alt="logo"
           />
-            <p className="block font-bold text-3xl text-center text-black">
-            {isSignUp ? "Unlock services with a quick registration" :isForgot? "Change Your Password":"Access services right from home – log in now!"}
+          <p className="block font-bold text-3xl text-center text-black">
+            {isSignUp
+              ? "Unlock services with a quick registration"
+              : isForgot
+              ? "Change Your Password"
+              : "Access services right from home – log in now!"}
           </p>
-          
+
           {!isForgot && (
             <p className="text-center">
               {isSignUp
@@ -129,9 +154,19 @@ const UserAuth = () => {
         <form onSubmit={handleFormSubmit}>
           <div className="md:w-[70%] w-[90%] m-auto space-y-3">
             <div className="flex flex-col justify-center items-center space-y-4">
+              {errorMessage && (
+                <div className="border border-red-900 bg-red-100 w-full p-2 rounded-lg">
+                  {errorMessage}
+                </div>
+              )}
+              {isLoading && (
+                <div className=" animate-spin">
+                  <CgSpinner size={"30px"} />
+                </div>
+              )}
               {isSignUp && (
                 <Input
-                label="name"
+                  label="name"
                   name="name"
                   onChange={handleChange}
                   value={formData.name}
@@ -169,7 +204,9 @@ const UserAuth = () => {
               <input
                 type="submit"
                 className="bg-purple-800 hover:bg-purple-900 w-full p-2 text-center text-white text-lg rounded-md hover:cursor-pointer"
-                value={isSignUp ? "Register" :isForgot? "Reset Password":"login"}
+                value={
+                  isSignUp ? "Register" : isForgot ? "Reset Password" : "login"
+                }
               />
             </div>
           </div>
