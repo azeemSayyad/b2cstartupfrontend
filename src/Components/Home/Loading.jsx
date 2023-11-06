@@ -1,7 +1,6 @@
 import { CgSpinner } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsLoading, setLogout } from "../../state";
-import { useNavigate } from "react-router-dom";
+import { setIsLoading } from "../../state";
 
 const Loading = () => {
   const isLoading = useSelector((state) => state.isLoading);

@@ -1,8 +1,5 @@
-import Navbar from "../Common/Navbar";
-import Footer from "../Common/Footer";
+
 import Categories from "./Categories";
-import Category from "./Category";
-import Loading from "./Loading";
 
 const Home = () => {
   return (

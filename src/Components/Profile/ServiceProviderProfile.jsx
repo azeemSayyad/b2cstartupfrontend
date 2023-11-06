@@ -79,7 +79,8 @@ const ServiceProviderProfile = () => {
       }
     }
     fetchImage();
-  }, []);
+    // eslint-disable-next-line
+  }, []); 
 
   return (
     <div className="md:flex p-4 gap-2 maxi:m-auto max-w-[1500px] min-w-[384px]">

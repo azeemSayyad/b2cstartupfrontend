@@ -107,6 +107,7 @@ const Navbar = () => {
     }
 
     fetchImage();
+    // eslint-disable-next-line
   }, []);
 
   return (

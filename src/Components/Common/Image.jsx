@@ -21,12 +21,13 @@ const MyComponent = () => {
     }
 
     fetchImage();
+    // eslint-disable-next-line
   }, []);
 
   return (
     <div>
       {imageUrl ? (
-        <img src={imageUrl} alt="S3 Image" />
+        <img src={imageUrl} alt="pp" />
       ) : (
         <p>Loading image...</p>
       )}

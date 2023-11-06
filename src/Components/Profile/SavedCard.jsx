@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import FetchImageS3 from "./FetchImageS3";
 
 import { Carousel } from "@material-tailwind/react";
@@ -66,7 +65,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
       }
     }
     fetchImage();
-  }, []);
+    // eslint-disable-next-line
+  }, []); 
 
   return (
     <div className="md:flex rounded-lg p-2 bg-white w-full">

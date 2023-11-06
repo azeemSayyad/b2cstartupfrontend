@@ -1,5 +1,4 @@
-import googleAdd from "../../assets/Images/googleAdd.jpeg";
-import { MdOutlineFilterList } from "react-icons/md";
+// import googleAdd from "../../assets/Images/googleAdd.jpeg";
 import ServiceProviderCard from "./serviceProviderCard";
 import { useNavigate  } from "react-router-dom";
 import { useSelector } from "react-redux";

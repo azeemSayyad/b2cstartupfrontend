@@ -9,7 +9,6 @@ import {
   DialogBody,
   DialogFooter,
   Carousel,
-  Input,
 } from "@material-tailwind/react";
 
 import axios from "axios";
@@ -73,6 +72,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
     };
 
     fetchUrls();
+    // eslint-disable-next-line
   }, []);
 
   return (

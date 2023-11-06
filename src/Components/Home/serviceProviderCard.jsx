@@ -24,7 +24,8 @@ const ServiceProviderCard = ({name,contact,about,experience,profession,profilePi
     }
 
     fetchImage();
-  }, []);
+    // eslint-disable-next-line
+  }, []); 
 
   return (
     <div className="flex flex-col m-2 px-2 py-4 border border-black space-y-2 rounded-lg bg-white ">

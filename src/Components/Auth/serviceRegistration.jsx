@@ -14,9 +14,11 @@ import microsoft from "../../assets/Images/microsoft.jpg";
 import { IoAddOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND;
 
 const ServiceRegistration = () => {
+
+  const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { _id } = useSelector((state) => state.user);
@@ -135,7 +137,7 @@ const ServiceRegistration = () => {
       formData1.append("location", formData.location);
 
       const resp = await axios.post(
-        "BACKEND_URL/auth/serviceRegistration",
+        `${BACKEND_URL}/auth/serviceRegistration`,
         formData1,
         {
           headers: {

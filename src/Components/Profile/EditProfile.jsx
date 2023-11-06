@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   setIsLoading,
   setProfilePictureURL,
   setUser,
-  setUserServiceList,
 } from "../../state";
 
 import axios from "axios";
@@ -15,18 +14,11 @@ import { IoAddOutline } from "react-icons/io5";
 import profileIconImage from "../../assets/Images/profileIconImage.png";
 
 import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Carousel,
   Input,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import FieldCard from "./FieldCard";
 
-const BASE_URL_LOCAL = process.env.REACT_APP_BASE_URL_LOCAL;
 
 const EditProfile = () => {
   

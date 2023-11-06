@@ -10,7 +10,6 @@ import Category from "./Components/Home/Category";
 import Layout from "./Components/Home/Layout";
 import EditProfile from "./Components/Profile/EditProfile";
 import Loading from "./Components/Home/Loading";
-import MyComponent from "./Components/Common/Image";
 import ServiceProviderProfile from "./Components/Profile/ServiceProviderProfile";
 import Saved from "./Components/Profile/Saved";
 

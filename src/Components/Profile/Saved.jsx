@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import FieldCard from "./FieldCard";
 import SavedCard from "./SavedCard";
 
 const Saved = () => {
