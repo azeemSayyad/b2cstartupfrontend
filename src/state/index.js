@@ -3,8 +3,10 @@ import {createSlice} from "@reduxjs/toolkit"
 const initialState = {
     user:null,
     token:null,
-    profilePictureURL:null,
-    serviceDetails:null
+    serviceProvidersFeed:[],
+    userServiceList:null,
+    isLoading:false,
+    profilePictureURL:null
 }
 
 const slice = createSlice({
@@ -14,19 +16,31 @@ const slice = createSlice({
         setLogin:(state,action)=>{
             state.user = action.payload.user;
             state.token = action.payload.token;
-            state.profilePictureURL = action.payload.profilePictureURL
+            state.userServiceList = action.payload.userServiceList;
         },
-        setServiceDetails: (state,action)=>{
-            console.log(action.payload);
-            state.serviceDetails = action.payload
+        setIsLoading:(state)=>{
+            state.isLoading = !state.isLoading
+        },
+        setServiceProvidersFeed:(state,action)=>{
+            console.log(action.payload)
+            state.serviceProvidersFeed = action.payload.data
         },
         setLogout:(state)=>{
             state.user = null;
             state.token = null;
             state.profilePictureURL = null;
+        },
+        setUser:(state,action)=>{
+            state.user = action.payload.updatedUser;
+        },
+        setProfilePictureURL:(state,action)=>{
+            state.profilePictureURL = action.payload;
+        },
+        setUserServiceList:(state,action)=>{
+            state.userServiceList = action.payload;
         }
     }
 })
 
 export default slice.reducer;
-export const {setLogin,setServiceDetails,setLogout} = slice.actions;
+export const {setLogin,setServiceDetails,setServiceProvidersFeed,setLogout,setIsLoading,setUser,setProfilePictureURL,setUserServiceList} = slice.actions;

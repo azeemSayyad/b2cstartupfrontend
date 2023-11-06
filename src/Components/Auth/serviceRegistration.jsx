@@ -1,25 +1,60 @@
-import { useSelector, useDispatch } from "react-redux";
-import microsoft from "../../assets/Images/microsoft.jpg";
-import { useEffect, useState } from "react";
-
-import { Multiselect } from "multiselect-react-dropdown";
-import { Input, Textarea } from "@material-tailwind/react";
-import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setIsLoading, setUserServiceList } from "../../state";
+
+import { Multiselect } from "multiselect-react-dropdown";
+
+import axios from "axios";
+
+import { Input, Textarea } from "@material-tailwind/react";
+
+import microsoft from "../../assets/Images/microsoft.jpg";
+import { IoAddOutline } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
+import { CgSpinner } from "react-icons/cg";
+
 const ServiceRegistration = () => {
-  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const {_id} = useSelector((state)=>state.user)
-  console.log(_id)
+  const dispatch = useDispatch();
+  const { _id } = useSelector((state) => state.user);
+  const [selectedImages, setSelectedImages] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+
+  const imageNames = [];
+  if (selectedImages) {
+    for (let image of selectedImages) {
+      console.log(image.name);
+      imageNames.push(image.name);
+    }
+  }
+
+  const fileInputRef = useRef(null);
+
+  const openFilePicker = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    if (files.length > 3) {
+      e.target.value = ""; 
+      setErrorMessage("You can only select up to 3 Images")
+    } else {
+      setSelectedImages(files);
+    }
+  };
 
   const [formData, setFormData] = useState({
-    name: "azeem",
     about: "",
     location: "",
   });
 
-  const [selectedProfessionOptions, setSelectedProfessionOptions] = useState([]);
+  const [selectedProfessionOptions, setSelectedProfessionOptions] = useState(
+    []
+  );
   const [selectedExperienceOption, setSelectedExperienceOption] = useState();
 
   const professionData = [
@@ -76,27 +111,44 @@ const ServiceRegistration = () => {
 
   const handleSubmit = async () => {
     try {
+      console.log(selectedImages);
+      dispatch(setIsLoading());
       const professionList = [];
-      for(let option of selectedProfessionOptions){
-        let field = option.field.toLowercase();
+
+      const formData1 = new FormData();
+      if(selectedImages){
+        for (const image of selectedImages) {
+          formData1.append("images", image);
+        }
+      }
+
+      for (let option of selectedProfessionOptions) {
+        let field = option.field.toLowerCase();
         professionList.push(field);
       }
-      const body = {
-        user_id: _id,
-        profession: professionList,
-        experience: selectedExperienceOption[0].exp,
-        about: formData.about,
-        location: formData.location,
-      };
-      console.log(body)
+
+      formData1.append("user_id", _id);
+      formData1.append("profession", JSON.stringify(professionList));
+      formData1.append("experience", selectedExperienceOption[0].exp);
+      formData1.append("about", formData.about);
+      formData1.append("location", formData.location);
+
       const resp = await axios.post(
         "http://localhost:4000/auth/serviceRegistration",
-        { body }
+        formData1,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-      console.log(resp);
-      navigate("/")
 
+      console.log(resp);
+      dispatch(setUserServiceList(resp.data));
+      dispatch(setIsLoading());
+      navigate("/");
     } catch (error) {
+      dispatch(setIsLoading());
       console.log(error);
     }
   };
@@ -106,7 +158,7 @@ const ServiceRegistration = () => {
   }, []);
 
   return (
-    <div className=" bg-purple-700 w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
+    <div className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
       <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
@@ -124,15 +176,12 @@ const ServiceRegistration = () => {
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="md:w-[70%] w-[90%] m-auto space-y-3">
             <div className="flex flex-col justify-center items-center space-y-3 ">
-              <Input
-                label="Name"
-                name="name"
-                className=" rounded-lg w-full "
-                value={formData.name}
-                onChange={handleChange}
-              />
-
               <div className="  rounded-lg  w-full  ">
+              {errorMessage && (
+                <div className="border border-red-900 bg-red-100 w-full p-2 rounded-lg mt-1 mb-3">
+                  {errorMessage}
+                </div>
+              )}
                 <Multiselect
                   onSelect={(selectedList, selectedOption) =>
                     setSelectedProfessionOptions(selectedList)
@@ -179,7 +228,47 @@ const ServiceRegistration = () => {
                 className=" rounded-lg  w-full "
                 value={formData.about}
                 onChange={handleChange}
+              />
+            </div>
 
+            <div className="flex flex-col w-full space-y-2 ">
+              <p className="text-black">Upload Images</p>
+              <div className="border border-gray-600 rounded-lg py-3  hover:border-dashed hover:border-gray-800 hover:cursor-pointer">
+                {selectedImages === null ? (
+                  <div
+                    onClick={openFilePicker}
+                    className=" rounded-lg flex items-center justify-center"
+                  >
+                    <IoAddOutline
+                      className=" object-cover h-[100px] w-[100px] hover:scale-95"
+                      color="gray"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex justify-between gap-3 px-3 items-center">
+                    <div className="flex flex-wrap gap-1">
+                      {imageNames.map((name, i) => (
+                        <p key={i} className="p-2 rounded-md bg-gray-300">
+                          {name}
+                        </p>
+                      ))}
+                    </div>
+                    <div
+                      className="mr-2 cursor-pointer "
+                      onClick={() => setSelectedImages(null)}
+                    >
+                      <MdDelete size={"25px"} />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleFileChange}
               />
             </div>
 
@@ -187,7 +276,7 @@ const ServiceRegistration = () => {
               <input
                 onClick={handleSubmit}
                 type="submit"
-                className="bg-purple-700 hover:bg-purple-800 w-full p-2 text-center text-white text-lg rounded-md hover:cursor-pointer"
+                className="bg-[#023e7d] hover:bg-[#002855] w-full p-2 text-center text-white text-lg rounded-md hover:cursor-pointer"
                 value={"Register"}
               />
             </div>

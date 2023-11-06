@@ -43,11 +43,11 @@ const UserAuth = () => {
         contact: formData.contact,
         password: formData.password,
       });
-      console.log(response);
-      setIsLoading(false);
-      console.log(isLoading);
+      
       dispatch(setLogin(response.data));
       setErrorMessage(null);
+      
+      setIsLoading(false);
 
       navigate("/");
     } catch (error) {
@@ -120,7 +120,7 @@ const UserAuth = () => {
   };
 
   return (
-    <div className=" bg-purple-700 w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
+    <div className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
       <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
@@ -203,7 +203,7 @@ const UserAuth = () => {
             <div className="pb-4 ">
               <input
                 type="submit"
-                className="bg-purple-800 hover:bg-purple-900 w-full p-2 text-center text-white text-lg rounded-md hover:cursor-pointer"
+                className="bg-[#023e7d] hover:bg-[#002855] w-full p-2 text-center text-white text-lg rounded-md hover:cursor-pointer"
                 value={
                   isSignUp ? "Register" : isForgot ? "Reset Password" : "login"
                 }

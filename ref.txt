@@ -41,3 +41,9 @@ To merge a feature branch into the main branch (e.g., "main" or "master") and th
    This will update the remote main branch with the merged changes.
 
 By following these steps, you will merge your feature branch into the main branch, delete the feature branch (if it's no longer needed), and ensure that the changes are reflected in the main branch of both your local and remote repositories.
+
+1/11/2023
+   Compress Image while uploading --- Done
+   ReRender when Profile picture changed --- Done
+   Manage services update and delete
+   Add Gallery

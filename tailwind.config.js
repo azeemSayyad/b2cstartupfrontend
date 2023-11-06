@@ -10,8 +10,13 @@ module.exports = withMT({
     extend: {
       screens:{
         maxi:"1500px",
-        sm1:"600px"
+        lg1:"1300px",
+        sm1:"600px",
+        mini:"384px"
       },
+      fontFamily:{
+        'mySans':["Open Sans","sans-serif"]
+      }
     },
   },
   plugins: [],
