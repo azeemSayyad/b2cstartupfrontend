@@ -11,13 +11,16 @@ import { setIsLoading, setServiceProvidersFeed } from "../../state";
 
 
 const Categories = () => {
+  
+const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const findServiceProviders = async (service) => {
     try {
       dispatch(setIsLoading());
-      const response = await axios.get(`http://localhost:4000/user/get/${service}`);
+      const response = await axios.get(`${BACKEND_URL}/user/get/${service}`);
       dispatch(setIsLoading());
 
       const data = []
@@ -29,6 +32,7 @@ const Categories = () => {
       dispatch(setServiceProvidersFeed({data}))
       navigate(`/category/`)
     } catch (error) {
+      dispatch(setIsLoading());
       console.log(error);
     }
   };

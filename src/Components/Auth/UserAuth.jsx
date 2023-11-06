@@ -11,9 +11,8 @@ import { setLogin } from "../../state/index";
 
 import { Input } from "@material-tailwind/react";
 
-const BASE_URL = "http://localhost:4000";
-
 const UserAuth = () => {
+  const BACKEND_URL = process.env.REACT_APP_BACKEND;
   const [isSignUp, setIsSignUp] = useState(false);
   const [isForgot, setIsForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,14 +38,15 @@ const UserAuth = () => {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.post(`${BASE_URL}/auth/login`, {
+      console.log(BACKEND_URL);
+      const response = await axios.post(`${BACKEND_URL}/auth/login`, {
         contact: formData.contact,
         password: formData.password,
       });
-      
+
       dispatch(setLogin(response.data));
       setErrorMessage(null);
-      
+
       setIsLoading(false);
 
       navigate("/");
@@ -61,7 +61,7 @@ const UserAuth = () => {
   const handleRegister = async () => {
     try {
       setIsLoading(true);
-      const resp = await axios.post(`${BASE_URL}/auth/userRegistration`, {
+      const resp = await axios.post(`${BACKEND_URL}/auth/userRegistration`, {
         name: formData.name,
         contact: formData.contact,
         password: formData.password,
@@ -83,7 +83,7 @@ const UserAuth = () => {
       setIsLoading(true);
       const contact = formData.contact;
       const response = await axios.patch(
-        `${BASE_URL}/auth/resetPassword/${contact}`,
+        `${BACKEND_URL}/auth/resetPassword/${contact}`,
         {
           newPassword: formData.password,
         }
@@ -115,7 +115,7 @@ const UserAuth = () => {
   const handleIsSignUp = () => {
     setErrorMessage(null);
     setIsSignUp(!isSignUp);
-    setIsLoading(false)
+    setIsLoading(false);
     resetForm();
   };
 

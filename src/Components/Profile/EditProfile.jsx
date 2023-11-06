@@ -30,6 +30,8 @@ const BASE_URL_LOCAL = process.env.REACT_APP_BASE_URL_LOCAL;
 
 const EditProfile = () => {
   
+const BACKEND_URL = process.env.REACT_APP_BACKEND;
+  
   const user = useSelector((state) => state.user);
   const imageUrl = useSelector((state) => state.profilePictureURL);
   const userServiceList = useSelector((state) => state.userServiceList);
@@ -54,7 +56,7 @@ const EditProfile = () => {
       formData.append("image", img);
 
       const response = await axios.patch(
-        `http://localhost:4000/user/updatePicture/${user_id}`,
+        `${BACKEND_URL}/user/updatePicture/${user_id}`,
         formData,
         {
           headers: {
@@ -87,7 +89,7 @@ const EditProfile = () => {
     try {
       const user_id = user._id;
       const response = await axios.patch(
-        `http://localhost:4000/user/updateName/${user_id}`,
+        `${BACKEND_URL}/user/updateName/${user_id}`,
         { updatedName: updatedName }
       );
       console.log(response.data);

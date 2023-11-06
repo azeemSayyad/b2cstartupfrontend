@@ -27,6 +27,8 @@ import {
 import axios from "axios";
 
 const Navbar = () => {
+  const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const imageUrl = useSelector((state) => state.profilePictureURL);
   const isToken = Boolean(useSelector((state) => state.token));
 
@@ -76,7 +78,7 @@ const Navbar = () => {
     try {
       if (user) {
         const user_id = user._id;
-        await axios.post(`http://localhost:4000/feedback/${user_id}`, {
+        await axios.post(`${BACKEND_URL}/feedback/${user_id}`, {
           feedback,
         });
         setIsFeedbackDone(true);

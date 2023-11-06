@@ -31,7 +31,7 @@ const Category = () => {
                 location,
                 gallery
               }) => (
-                <div onClick={()=>handleClick(_id)}>
+                <div key={_id} onClick={()=>handleClick(_id)}>
                   <ServiceProviderCard
                     name={name}
                     contact={contact}

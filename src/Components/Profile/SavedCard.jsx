@@ -20,6 +20,9 @@ const SavedCard = ({
   profilePicture,
   _id,
 }) => {
+  
+const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const [imageUrl, setImageUrl] = useState(null);
   const [galleryUrls, setGalleryUrls] = useState(null);
 
@@ -34,7 +37,7 @@ const SavedCard = ({
         const user_id = user._id;
 
         const response = await axios.patch(
-          `http://localhost:4000/user/removeFromSave/${user_id}`,
+          `${BACKEND_URL}/user/removeFromSave/${user_id}`,
           {service_id:_id}
         );
         console.log(response.data);

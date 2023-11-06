@@ -23,6 +23,9 @@ const FieldCard = ({
   about,
   gallery,
 }) => {
+  
+const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const [galleryUrls, setGalleryUrls] = useState(null);
   const [isDeleteId, setIsDeleteId] = useState(null);
 
@@ -38,7 +41,7 @@ const FieldCard = ({
       dispatch(setIsLoading());
 
       const resp = await axios.post(
-        `http://localhost:4000/user/deleteService/${service_id}`,
+        `${BACKEND_URL}/user/deleteService/${service_id}`,
         { user_id: user._id }
       );
 

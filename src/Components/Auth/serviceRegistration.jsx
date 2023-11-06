@@ -13,7 +13,8 @@ import { Input, Textarea } from "@material-tailwind/react";
 import microsoft from "../../assets/Images/microsoft.jpg";
 import { IoAddOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
-import { CgSpinner } from "react-icons/cg";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND;
 
 const ServiceRegistration = () => {
   const navigate = useNavigate();
@@ -134,7 +135,7 @@ const ServiceRegistration = () => {
       formData1.append("location", formData.location);
 
       const resp = await axios.post(
-        "http://localhost:4000/auth/serviceRegistration",
+        "BACKEND_URL/auth/serviceRegistration",
         formData1,
         {
           headers: {

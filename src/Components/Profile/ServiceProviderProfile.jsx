@@ -18,6 +18,9 @@ import {BiSolidPhoneCall} from 'react-icons/bi';
 import axios from "axios";
 
 const ServiceProviderProfile = () => {
+
+  const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const [imageUrl, setImageUrl] = useState(null);
   const [galleryUrls, setGalleryUrls] = useState(null);
 
@@ -45,7 +48,7 @@ const ServiceProviderProfile = () => {
         const user_id = user._id;
 
         const response = await axios.patch(
-          `http://localhost:4000/user/addToSave/${user_id}`,
+          `${BACKEND_URL}/user/addToSave/${user_id}`,
           details[0]
         );
         console.log(response.data);
