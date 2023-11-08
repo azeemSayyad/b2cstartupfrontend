@@ -1,20 +1,46 @@
 // import googleAdd from "../../assets/Images/googleAdd.jpeg";
 import ServiceProviderCard from "./serviceProviderCard";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import { motion } from "framer-motion";
 
 const Category = () => {
   const data = useSelector((state) => state.serviceProvidersFeed);
   const navigate = useNavigate();
   console.log(data);
 
-  const handleClick = (service_id)=>{
-    navigate(`/serviceProviderProfile/${service_id}`)
+  const handleClick = (service_id) => {
+    navigate(`/serviceProviderProfile/${service_id}`);
     // here i want to open whole service profile over this page, how can i do this
-  }
+  };
+
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: "-100%",
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
 
   return (
-    <div>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ type: "tween" }}
+    >
       {data.length !== 0 ? (
         <div className=" grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 m-2 min-w-[384px] max-w-[1500px] maxi:m-auto">
           {data &&
@@ -28,9 +54,9 @@ const Category = () => {
                 profession,
                 profilePicture,
                 location,
-                gallery
+                gallery,
               }) => (
-                <div key={_id} onClick={()=>handleClick(_id)}>
+                <div key={_id} onClick={() => handleClick(_id)}>
                   <ServiceProviderCard
                     name={name}
                     contact={contact}
@@ -59,7 +85,7 @@ const Category = () => {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

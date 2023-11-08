@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../../state/index";
 
 import { Input } from "@material-tailwind/react";
+import { motion } from "framer-motion";
 
 const UserAuth = () => {
   const BACKEND_URL = process.env.REACT_APP_BACKEND;
@@ -119,8 +120,30 @@ const UserAuth = () => {
     resetForm();
   };
 
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      y: "-100%",
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: "100%",
+    },
+  };
+
   return (
-    <div className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
+    <motion.div initial="initial"
+    animate="animate"
+    exit="exit"
+    variants={pageVariants}
+    transition={{ type: "tween" }} className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
       <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
@@ -212,7 +235,7 @@ const UserAuth = () => {
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

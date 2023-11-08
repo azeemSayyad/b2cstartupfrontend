@@ -8,11 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLoading, setServiceProvidersFeed } from "../../state";
 
-
+import { motion } from "framer-motion";
 
 const Categories = () => {
-  
-const BACKEND_URL = process.env.REACT_APP_BACKEND;
+  const BACKEND_URL = process.env.REACT_APP_BACKEND;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,25 +22,52 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
       const response = await axios.get(`${BACKEND_URL}/user/get/${service}`);
       dispatch(setIsLoading());
 
-      const data = []
-      for(let obj of response.data){
+      const data = [];
+      for (let obj of response.data) {
         console.log(obj);
         data.push(obj);
       }
 
-      dispatch(setServiceProvidersFeed({data}))
-      navigate(`/category/`)
+      dispatch(setServiceProvidersFeed({ data }));
+      navigate(`/category/`);
     } catch (error) {
       dispatch(setIsLoading());
       console.log(error);
     }
   };
 
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: "-100%",
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
+
   return (
-    <div className="min-w-[384px] max-w-[1500px] maxi:m-auto">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ type: "tween" }}
+      className="min-w-[384px] max-w-[1500px] maxi:m-auto"
+    >
       <div className="grid items-center grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 maxi:grid-cols-8  gap-3 mx-3 my-4 ">
-        <div 
-          onClick={()=>findServiceProviders("tiles")} className="p-1 bg-white rounded-lg hover:shadow-md hover:shadow-[#023e7d]">
+        <div
+          onClick={() => findServiceProviders("tiles")}
+          className="p-1 bg-white rounded-lg hover:shadow-md hover:shadow-[#023e7d]"
+        >
           <div className=" overflow-hidden rounded-lg ">
             <img
               className="h-[100px]  rounded-lg  w-full object-cover hover:scale-105 duration-300"
@@ -54,7 +80,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
           </p>
         </div>
         <div
-          onClick={()=>findServiceProviders("carpentry")}
+          onClick={() => findServiceProviders("carpentry")}
           className="p-1 bg-white rounded-lg hover:shadow-md hover:shadow-purple-300"
         >
           <div className=" overflow-hidden rounded-lg">
@@ -68,8 +94,10 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
             Carpentry
           </p>
         </div>
-        <div 
-          onClick={()=>findServiceProviders("ceiling")} className="p-1 bg-white rounded-lg hover:shadow-md hover:shadow-purple-300">
+        <div
+          onClick={() => findServiceProviders("ceiling")}
+          className="p-1 bg-white rounded-lg hover:shadow-md hover:shadow-purple-300"
+        >
           <div className=" overflow-hidden rounded-lg">
             <img
               className="h-[100px]  rounded-lg  w-full object-cover hover:scale-105 duration-300"
@@ -81,8 +109,10 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
             Ceiling
           </p>
         </div>
-        <div 
-          onClick={()=>findServiceProviders("plumber")} className="p-1 bg-white rounded-lg hover:shadow-md hover:shadow-purple-300">
+        <div
+          onClick={() => findServiceProviders("plumber")}
+          className="p-1 bg-white rounded-lg hover:shadow-md hover:shadow-purple-300"
+        >
           <div className=" overflow-hidden rounded-lg">
             <img
               className="h-[100px]  rounded-lg  w-full object-cover hover:scale-105 duration-300"
@@ -94,9 +124,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
             Plumber
           </p>
         </div>
-        
       </div>
-    </div>
+    </motion.div>
   );
 };
 

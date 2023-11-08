@@ -29,7 +29,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
   const [isDeleteId, setIsDeleteId] = useState(null);
 
     const user = useSelector((state) => state.user);
-    console.log("user._id",user._id)
 
   const dispatch = useDispatch();
 

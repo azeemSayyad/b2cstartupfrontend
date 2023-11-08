@@ -1,11 +1,7 @@
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setIsLoading,
-  setProfilePictureURL,
-  setUser,
-} from "../../state";
+import { setIsLoading, setProfilePictureURL, setUser } from "../../state";
 
 import axios from "axios";
 import FetchImageS3 from "./FetchImageS3";
@@ -13,17 +9,15 @@ import { IoAddOutline } from "react-icons/io5";
 
 import profileIconImage from "../../assets/Images/profileIconImage.png";
 
-import {
-  Input,
-} from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import FieldCard from "./FieldCard";
 
+import { motion } from "framer-motion";
 
 const EditProfile = () => {
-  
-const BACKEND_URL = process.env.REACT_APP_BACKEND;
-  
+  const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const user = useSelector((state) => state.user);
   const imageUrl = useSelector((state) => state.profilePictureURL);
   const userServiceList = useSelector((state) => state.userServiceList);
@@ -33,8 +27,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
   const [isEdit, setIsEdit] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  
 
   const openFilePicker = () => {
     fileInputRef.current.click();
@@ -98,8 +90,33 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
     navigate("/registerService");
   };
 
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: "-100%",
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
+
   return (
-    <div className=" md:flex maxi:m-auto max-w-[1500px] min-w-[384px] p-4 gap-1  ">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ type: "tween" }}
+      className=" md:flex maxi:m-auto max-w-[1500px] min-w-[384px] p-4 gap-1  "
+    >
       <div className="flex flex-col md:w-[25%] pt-5 md:h-screen  border border-black  space-y-4 bg-white rounded-lg">
         <div className="flex justify-center">
           {imageUrl ? (
@@ -188,7 +205,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

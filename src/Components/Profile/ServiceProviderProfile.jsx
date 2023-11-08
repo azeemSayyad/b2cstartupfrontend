@@ -13,12 +13,12 @@ import profileIconImage from "../../assets/Images/profileIconImage.png";
 import add from "../../assets/Images/googleAdd.jpeg";
 import saveIcon from "../../Icons/saveIcon.svg";
 
-import {BiSolidPhoneCall} from 'react-icons/bi';
+import { BiSolidPhoneCall } from "react-icons/bi";
 
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const ServiceProviderProfile = () => {
-
   const BACKEND_URL = process.env.REACT_APP_BACKEND;
 
   const [imageUrl, setImageUrl] = useState(null);
@@ -32,7 +32,7 @@ const ServiceProviderProfile = () => {
     (state) => state.serviceProvidersFeed
   );
   const user = useSelector((state) => state.user);
-  console.log(user)
+  console.log(user);
   let isSaved = false;
   if (user) {
     isSaved = user.saved.some((service) => service._id === service_id);
@@ -53,7 +53,7 @@ const ServiceProviderProfile = () => {
         );
         console.log(response.data);
         dispatch(setUser(response.data));
-      } else if(!user) {
+      } else if (!user) {
         navigate("/auth");
       }
     } catch (error) {
@@ -80,10 +80,35 @@ const ServiceProviderProfile = () => {
     }
     fetchImage();
     // eslint-disable-next-line
-  }, []); 
+  }, []);
+
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: "-100%",
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
 
   return (
-    <div className="md:flex p-4 gap-2 maxi:m-auto max-w-[1500px] min-w-[384px]">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ type: "tween" }}
+      className="md:flex p-4 gap-2 maxi:m-auto max-w-[1500px] min-w-[384px]"
+    >
       {/* Service Provider Profile  */}
       <div className="md:flex rounded-lg p-2 bg-white md:w-[75%]  ">
         <div className="flex flex-col space-y-3  w-full">
@@ -115,32 +140,33 @@ const ServiceProviderProfile = () => {
                   {details[0].experience}
                 </span>
               </p>
-              <p>
-                Location:{" "}
-                <span className=" font-bold text-gray-900 ml-2">
-                  {details[0].location}
-                </span>
+              <p>Location: 
+              <span className=" font-bold text-gray-900 ml-2">
+                {details[0].location}
+              </span>
               </p>
-              <p>
-                Expert in:{" "}
+            </div>
+            <div className="flex flex-col justify-center space-y-3">
+              <div className="text-center text-xl">Services</div>
+              <div className="flex flex-wrap gap-2">
                 {details[0].profession &&
                   details[0].profession.map((field, i) => (
-                    <span
-                      className="px-1 mx-2 font-bold rounded-sm text-gray-900  overflow-scroll "
+                    <div
+                      className="px-2  bg-[#023e7d] text-center py-1  font-bold rounded-sm text-white  "
                       key={i}
                     >
                       {field}
-                    </span>
+                    </div>
                   ))}
-              </p>
+              </div>
             </div>
           </div>
           <div className=" bg-white p-2 space-y-3">
-          {details[0].about && 
-            <div className="">
-              About: <span>{details[0].about}</span>
-            </div>
-          }
+            {details[0].about && (
+              <div className="">
+                About: <span>{details[0].about}</span>
+              </div>
+            )}
             {/* Gallery Carousel */}
             {details[0].gallery.length !== 0 && (
               <div className="h-[200px] md:w-[50%] md:m-auto">
@@ -159,8 +185,10 @@ const ServiceProviderProfile = () => {
             )}
             {/* Contact button  */}
             <div className=" flex space-x-3 p-1 justify-center cursor-pointer bg-green-400 text-white hover:bg-green-500 hover:font-semibold w-full  rounded-lg">
-              <BiSolidPhoneCall size={'25px'}/>
-              <p><a href={`tel:${details[0].contact}`}>Call</a></p>
+              <BiSolidPhoneCall size={"25px"} />
+              <p>
+                <a href={`tel:${details[0].contact}`}>Call</a>
+              </p>
             </div>
             <div
               onClick={addToSave}
@@ -186,7 +214,7 @@ const ServiceProviderProfile = () => {
           alt="add"
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

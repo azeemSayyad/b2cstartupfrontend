@@ -14,9 +14,9 @@ import microsoft from "../../assets/Images/microsoft.jpg";
 import { IoAddOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 
+import { motion } from "framer-motion";
 
 const ServiceRegistration = () => {
-
   const BACKEND_URL = process.env.REACT_APP_BACKEND;
 
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ const ServiceRegistration = () => {
   const { _id } = useSelector((state) => state.user);
   const [selectedImages, setSelectedImages] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-
 
   const imageNames = [];
   if (selectedImages) {
@@ -43,8 +42,8 @@ const ServiceRegistration = () => {
   const handleFileChange = (e) => {
     const files = e.target.files;
     if (files.length > 3) {
-      e.target.value = ""; 
-      setErrorMessage("You can only select up to 3 Images")
+      e.target.value = "";
+      setErrorMessage("You can only select up to 3 Images");
     } else {
       setSelectedImages(files);
     }
@@ -119,7 +118,7 @@ const ServiceRegistration = () => {
       const professionList = [];
 
       const formData1 = new FormData();
-      if(selectedImages){
+      if (selectedImages) {
         for (const image of selectedImages) {
           formData1.append("images", image);
         }
@@ -160,8 +159,33 @@ const ServiceRegistration = () => {
     resetForm();
   }, []);
 
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: "-100%",
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
+
   return (
-    <div className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ type: "tween" }}
+      className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen"
+    >
       <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
@@ -180,11 +204,11 @@ const ServiceRegistration = () => {
           <div className="md:w-[70%] w-[90%] m-auto space-y-3">
             <div className="flex flex-col justify-center items-center space-y-3 ">
               <div className="  rounded-lg  w-full  ">
-              {errorMessage && (
-                <div className="border border-red-900 bg-red-100 w-full p-2 rounded-lg mt-1 mb-3">
-                  {errorMessage}
-                </div>
-              )}
+                {errorMessage && (
+                  <div className="border border-red-900 bg-red-100 w-full p-2 rounded-lg mt-1 mb-3">
+                    {errorMessage}
+                  </div>
+                )}
                 <Multiselect
                   onSelect={(selectedList, selectedOption) =>
                     setSelectedProfessionOptions(selectedList)
@@ -286,7 +310,7 @@ const ServiceRegistration = () => {
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
