@@ -82,31 +82,34 @@ const ServiceProviderProfile = () => {
     // eslint-disable-next-line
   }, []);
 
-  const pageVariants = {
-    initial: {
-      opacity: 0,
-      x: "-100%",
-    },
-    animate: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    exit: {
-      opacity: 0,
-      x: "100%",
-    },
-  };
+  // const pageVariants = {
+  //   initial: {
+  //     opacity: 0,
+  //     x: "-100%",
+  //   },
+  //   animate: {
+  //     opacity: 1,
+  //     x: 0,
+  //     transition: {
+  //       duration: 0.5,
+  //     },
+  //   },
+  //   exit: {
+  //     opacity: 0,
+  //     x: "100%",
+  //   },
+  // };
 
   return (
     <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-      transition={{ type: "tween" }}
+    initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      // initial="initial"
+      // animate="animate"
+      // exit="exit"
+      // variants={pageVariants}
+      transition={{ type: "tween",duration:0.9 }}
       className="md:flex p-4 gap-2 maxi:m-auto max-w-[1500px] min-w-[384px]"
     >
       {/* Service Provider Profile  */}

@@ -22,9 +22,10 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
+  Textarea,
 } from "@material-tailwind/react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const BACKEND_URL = process.env.REACT_APP_BACKEND;
@@ -110,6 +111,24 @@ const Navbar = () => {
     // eslint-disable-next-line
   }, []);
 
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: "200%",
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
+
   return (
     <div className="w-full bg-[#023e7d] h-[60px] relative min-w-[384px]">
       {/* Background Overlay */}
@@ -176,11 +195,21 @@ const Navbar = () => {
       {/* Mobile menu component */}
       {isProfile && (
         <div>
+          {/**blur area */}
           <div
             onClick={() => setIsProfile(!isProfile)}
-            className="fixed top-0 left-0 w-[25%] sm:w-[40%] md:w-[60%] lg:w-[70%] maxi:w-[80%] bg-black h-screen opacity-50 "
+            // className="fixed top-0 left-0 w-[25%] sm:w-[40%] md:w-[60%] lg:w-[70%] maxi:w-[80%] bg-black h-screen opacity-50 z-50 "
+            className="fixed top-0 left-0 w-full   bg-black h-screen opacity-50 z-50 "
           ></div>
-          <div className="fixed top-0 right-0 h-full bg-white w-[75%] sm:w-[60%] md:w-[40%] lg:w-[30%] maxi:w-[20%] z-50">
+          {/**side bar */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={pageVariants}
+            transition={{ type: "tween" }}
+            className="fixed top-0 right-0 h-full bg-white w-[75%] sm:w-[60%] md:w-[40%] lg:w-[30%] maxi:w-[20%] z-50 "
+          >
             <div className="flex p-4 justify-between">
               <div className="flex ml-2">
                 {imageUrl ? (
@@ -192,7 +221,7 @@ const Navbar = () => {
                 ) : (
                   <CgProfile size={"30px"} />
                 )}
-                <p className="text-xl ml-3 text-gray-800">Sayyad Azeem</p>
+                <p className="text-xl ml-3 text-gray-800">{user.name}</p>
               </div>
 
               <AiFillCloseCircle
@@ -224,8 +253,8 @@ const Navbar = () => {
               onClick={() => setIsFeedback(true)}
               className=" flex  text-gray-800 cursor-pointer px-5 py-3 hover:bg-gray-300  text-xl duration-200"
             >
-              <img className="w-[30px]" src={feedbackIcon} alt="icon" />
-              <p className="ml-4">Feedback</p>
+              <img className="w-[38px]" src={feedbackIcon} alt="icon" />
+              <p className="ml-4 mt-2">Feedback</p>
             </div>
             <div
               onClick={logout}
@@ -238,7 +267,7 @@ const Navbar = () => {
               />
               <p className="ml-4">Logout</p>
             </div>
-          </div>
+          </motion.div>
           <Dialog
             open={isFeedback}
             handler={() => setIsFeedback(null)}
@@ -254,7 +283,7 @@ const Navbar = () => {
                   Thanks for providing your valuable Feedback :)
                 </div>
               ) : (
-                <Input
+                <Textarea
                   label="Feedback"
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
