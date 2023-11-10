@@ -60,10 +60,66 @@ const ServiceRegistration = () => {
   const [selectedExperienceOption, setSelectedExperienceOption] = useState();
 
   const professionData = [
-    { field: "Tiles", id: 1 },
-    { field: "Carpentry", id: 2 },
-    { field: "Painting", id: 3 },
-    { field: "Electrician", id: 4 },
+    {
+      field: "civil_engineer",
+      id: 1,
+    },
+    {
+      field: "mation",
+      id: 2,
+    },
+    {
+      field: "electrician",
+      id: 3,
+    },
+    {
+      field: "painting",
+      id: 4,
+    },
+    {
+      field: "tiles",
+      id: 5,
+    },
+    {
+      field: "ceiling",
+      id: 6,
+    },
+    {
+      field: "carpenter",
+      id: 7,
+    },
+    {
+      field: "plumber",
+      id: 8,
+    },
+    {
+      field: "iron_work",
+      id: 9,
+    },
+    {
+      field: "centring",
+      id: 10,
+    },
+    {
+      field: "steel_railing",
+      id: 11,
+    },
+    {
+      field: "cupboard",
+      id: 12,
+    },
+    {
+      field: "welder",
+      id: 13,
+    },
+    {
+      field: "chipping",
+      id: 14,
+    },
+    {
+      field: "ground_diggers",
+      id: 15,
+    },
   ];
   const [professionOptions] = useState(professionData);
 

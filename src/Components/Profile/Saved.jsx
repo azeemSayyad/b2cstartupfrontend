@@ -43,10 +43,12 @@ const Saved = () => {
             profession,
             _id,
             profilePicture,
+            contact
           }) => (
             <SavedCard
               name={name}
               key={_id}
+              contact={contact}
               experience={experience}
               location={location}
               about={about}

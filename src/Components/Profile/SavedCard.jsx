@@ -15,6 +15,7 @@ const SavedCard = ({
   location,
   about,
   gallery,
+  contact,
   profession,
   profilePicture,
   _id,
@@ -89,11 +90,11 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
             )}
             <p className="text-2xl text-gray-800 font-semibold">{name}</p>
           </div>
-          {/* Details[0]  */}
+          {/*  */}
           <div className="p-3 md:w-[50%] text-gray-700 text-xl rounded-sm  ">
             <p>
               Experience:{" "}
-              <span className=" font-bold text-gray-900 ml-2">
+              <span className=" font-bold text-[18px] text-gray-900 ml-2">
                 {experience}
               </span>
             </p>
@@ -101,18 +102,20 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
               Location:{" "}
               <span className=" font-bold text-gray-900 ml-2">{location}</span>
             </p>
-            <p>
-              Expert in:{" "}
-              {profession &&
-                profession.map((field, i) => (
-                  <span
-                    className="px-1 mx-2 font-bold rounded-sm text-gray-900  overflow-scroll "
-                    key={i}
-                  >
-                    {field}
-                  </span>
-                ))}
-            </p>
+            <div className="flex flex-col justify-center space-y-3">
+              <div className="text-center text-xl">Services</div>
+              <div className="flex flex-wrap gap-2">
+                {profession &&
+                  profession.map((field, i) => (
+                    <div
+                      className="px-2  bg-[#023e7d] text-center py-1  font-bold rounded-sm text-white  "
+                      key={i}
+                    >
+                      {field}
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </div>
         <div className="  p-2 space-y-3">
@@ -138,7 +141,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND;
           {/* Contact button  */}
           <div className=" flex p-1 space-x-3 justify-center bg-green-400 text-white hover:bg-green-500 hover:font-semibold w-full  rounded-lg">
             <BiSolidPhoneCall size={"25px"} />
-            <p>Call</p>
+            <a href={`tel:${contact}`}>Call</a>
           </div>
           <div
             onClick={removeFromSave}

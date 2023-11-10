@@ -130,7 +130,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full bg-[#023e7d] h-[60px] relative min-w-[384px]">
+    <div className="w-full bg-[#023e7d] h-[55px] sm:h-[60px] relative min-w-[384px]">
       {/* Background Overlay */}
       {showMenu && (
         <div
