@@ -7,7 +7,7 @@ const initialState = {
     userServiceList:null,
     isLoading:false,
     profilePictureURL:null,
-    redirectPath:"home"
+    redirectPath:"/"
 }
 
 const slice = createSlice({
