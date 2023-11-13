@@ -10,7 +10,8 @@ import axios from "axios";
 
 import { Input, Textarea } from "@material-tailwind/react";
 
-import microsoft from "../../assets/Images/microsoft.jpg";
+import logo from "../../assets/Images/company_logo.png";
+
 import { IoAddOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 
@@ -240,12 +241,12 @@ const ServiceRegistration = () => {
       exit="exit"
       variants={pageVariants}
       transition={{ type: "tween" }}
-      className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen"
+      className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5  max-w-[2400px] min-h-screen"
     >
       <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
-            src={microsoft}
+            src={logo}
             className=" h-[60px] object-cover object-center mb-[-10px]"
             alt="logo"
           />

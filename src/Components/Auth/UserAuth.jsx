@@ -1,4 +1,4 @@
-import microsoft from "../../assets/Images/microsoft.jpg";
+import logo from "../../assets/Images/company_logo.png";
 
 import { CgSpinner } from "react-icons/cg";
 
@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLogin } from "../../state/index";
 
 import { Input } from "@material-tailwind/react";
@@ -19,6 +19,8 @@ const UserAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const redirectPath = useSelector(state=>state.redirectPath);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -50,7 +52,8 @@ const UserAuth = () => {
 
       setIsLoading(false);
 
-      navigate("/");
+      navigate(redirectPath);
+      // navigate("/");
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -143,11 +146,11 @@ const UserAuth = () => {
     animate="animate"
     exit="exit"
     variants={pageVariants}
-    transition={{ type: "tween" }} className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5 min-w-[384px] max-w-[2400px] min-h-screen">
+    transition={{ type: "tween" }} className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5  max-w-[2400px] min-h-screen">
       <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
-            src={microsoft}
+            src={logo}
             className=" h-[60px] object-cover object-center mb-[-10px]"
             alt="logo"
           />

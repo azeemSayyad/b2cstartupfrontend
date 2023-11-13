@@ -6,7 +6,8 @@ const initialState = {
     serviceProvidersFeed:[],
     userServiceList:null,
     isLoading:false,
-    profilePictureURL:null
+    profilePictureURL:null,
+    redirectPath:"home"
 }
 
 const slice = createSlice({
@@ -38,9 +39,12 @@ const slice = createSlice({
         },
         setUserServiceList:(state,action)=>{
             state.userServiceList = action.payload;
+        },
+        setRedirectpath:(state,action)=>{
+            state.redirectPath = action.payload;
         }
     }
 })
 
 export default slice.reducer;
-export const {setLogin,setServiceDetails,setServiceProvidersFeed,setLogout,setIsLoading,setUser,setProfilePictureURL,setUserServiceList} = slice.actions;
+export const {setLogin,setServiceDetails,setServiceProvidersFeed,setLogout,setIsLoading,setUser,setProfilePictureURL,setUserServiceList,setRedirectpath} = slice.actions;

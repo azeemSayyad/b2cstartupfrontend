@@ -15,33 +15,39 @@ import Saved from "./Components/Profile/Saved";
 
 import { AnimatePresence } from "framer-motion";
 
+import { SkeletonTheme } from "react-loading-skeleton";
+import SkeletonLoading from "./Components/Profile/SkeletonLoading";
+
 function App() {
   const auth = Boolean(useSelector((state) => state.token));
 
   return (
-    <AnimatePresence>
-      <BrowserRouter>
-        <Loading />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<UserAuth />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route
-              path="/registerService"
-              element={auth ? <ServiceRegistration /> : <UserAuth />}
-            />
-            <Route path="/category" element={<Category />} />
-            <Route path="/saved" element={<Saved />} />
-            <Route path="/editProfile" element={<EditProfile />} />
-            <Route
-              path="/serviceProviderProfile/:service_id"
-              element={<ServiceProviderProfile />}
-            />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-    </AnimatePresence>
+    <SkeletonTheme baseColor="#ced4da" highlightColor="#e9ecef">
+      <AnimatePresence>
+        <BrowserRouter>
+          <Loading />
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/auth" element={<UserAuth />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/skeleton" element={<SkeletonLoading />} />
+              <Route
+                path="/registerService"
+                element={auth ? <ServiceRegistration /> : <UserAuth />}
+              />
+              <Route path="/category/:service" element={<Category />} />
+              <Route path="/saved" element={<Saved />} />
+              <Route path="/editProfile" element={<EditProfile />} />
+              <Route
+                path="/serviceProviderProfile/:service_id"
+                element={<ServiceProviderProfile />}
+              />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </AnimatePresence>
+    </SkeletonTheme>
   );
 }
 

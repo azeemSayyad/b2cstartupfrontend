@@ -1,19 +1,49 @@
 // import googleAdd from "../../assets/Images/googleAdd.jpeg";
 import ServiceProviderCard from "./serviceProviderCard";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { motion } from "framer-motion";
+import SkeletonLoading from "../Profile/SkeletonLoading";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { setServiceProvidersFeed } from "../../state";
 
 const Category = () => {
-  const data = useSelector((state) => state.serviceProvidersFeed);
+  const [isLoading, setIsLoading] = useState(false);
+  const serviceFeed = useSelector((state) => state.serviceProvidersFeed);
+
+  const BACKEND_URL = process.env.REACT_APP_BACKEND;
+
   const navigate = useNavigate();
-  console.log(data);
+  const dispatch = useDispatch();
+
+  const { service } = useParams();
 
   const handleClick = (service_id) => {
     navigate(`/serviceProviderProfile/${service_id}`);
     // here i want to open whole service profile over this page, how can i do this
   };
+
+  useEffect(() => {
+    const fetchFeed = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(`${BACKEND_URL}/user/get/${service}`);
+        setIsLoading(false);
+        const data = [];
+        for (let obj of response.data) {
+          data.push(obj);
+        }
+        dispatch(setServiceProvidersFeed({ data }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchFeed();
+    // eslint-disable-next-line
+  }, []);
 
   const pageVariants = {
     initial: {
@@ -41,10 +71,18 @@ const Category = () => {
       variants={pageVariants}
       transition={{ type: "tween" }}
     >
-      {data.length !== 0 ? (
-        <div className=" grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 m-2 min-w-[384px] max-w-[1500px] maxi:m-auto">
-          {data &&
-            data.map(
+      {isLoading ? (
+        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 m-2 min-w-[374px] max-w-[1500px] maxi:m-auto">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="m-2 px-2 py-4 rounded-lg">
+              <SkeletonLoading key={i} />
+            </div>
+          ))}
+        </div>
+      ) : serviceFeed ? (
+        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 m-2 min-w-[374px] max-w-[1500px] maxi:m-auto">
+          {serviceFeed &&
+            serviceFeed.map(
               ({
                 _id,
                 name,

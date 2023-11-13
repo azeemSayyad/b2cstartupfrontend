@@ -19,37 +19,38 @@ import chipping from "../../assets/Images/chipping.jpg";
 // import key_maker from "../../assets/Images/key_maker.jpg";
 // import electronic_repair from "../../assets/Images/electronic_repair.jpg";
 
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setIsLoading, setServiceProvidersFeed } from "../../state";
+import {  setServiceProvidersFeed } from "../../state";
 
 import { motion } from "framer-motion";
 
 const Categories = () => {
-  const BACKEND_URL = process.env.REACT_APP_BACKEND;
+  // const BACKEND_URL = process.env.REACT_APP_BACKEND;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const findServiceProviders = async (service) => {
-    try {
-      dispatch(setIsLoading());
-      const response = await axios.get(`${BACKEND_URL}/user/get/${service}`);
-      dispatch(setIsLoading());
+    // try {
+    //   dispatch(setIsLoading());
+    //   const response = await axios.get(`${BACKEND_URL}/user/get/${service}`);
+    //   dispatch(setIsLoading());
 
-      const data = [];
-      for (let obj of response.data) {
-        console.log(obj);
-        data.push(obj);
-      }
+    //   const data = [];
+    //   for (let obj of response.data) {
+    //     console.log(obj);
+    //     data.push(obj);
+    //   }
 
-      dispatch(setServiceProvidersFeed({ data }));
-      navigate(`/category/`);
-    } catch (error) {
-      dispatch(setIsLoading());
-      console.log(error);
-    }
+    //   dispatch(setServiceProvidersFeed({ data }));
+      dispatch(setServiceProvidersFeed({data:null}));
+    
+      navigate(`/category/${service}`);
+    // } catch (error) {
+    //   dispatch(setIsLoading());
+    //   console.log(error);
+    // }
   };
 
   const pageVariants = {
@@ -155,7 +156,7 @@ const Categories = () => {
       exit="exit"
       variants={pageVariants}
       transition={{ type: "tween" }}
-      className="min-w-[384px] max-w-[1500px] maxi:m-auto"
+      className="min-w-[374px] max-w-[1500px] maxi:m-auto"
     >
       <div className="grid items-center grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 maxi:grid-cols-8  gap-3 mx-3 my-4 ">
         {fields.map(({ field, img, id }) => (
@@ -171,7 +172,7 @@ const Categories = () => {
                 alt="icon"
               />
             </div>
-            <p className="text-black p-1 text-center text-xl font-semibold capitalize overflow-scroll">
+            <p className={`text-black p-1 text-center ${field.length > 10 ? " text-sm":"text-xl"}  font-semibold capitalize overflow-scroll`}>
               {field}
             </p>
           </div>

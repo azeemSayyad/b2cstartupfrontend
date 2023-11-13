@@ -15,3 +15,7 @@ body{
 .overflow-scroll::-webkit-scrollbar {
     display: none;
   }
+
+.overflow-y-scroll::-webkit-scrollbar {
+    display: none;
+  }

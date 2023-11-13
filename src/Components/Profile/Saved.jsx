@@ -30,7 +30,7 @@ const Saved = () => {
       exit="exit"
       variants={pageVariants}
       transition={{ type: "tween" }}
-      className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4 min-w-[384px] maxi:m-auto max-w-[1500px]"
+      className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4 min-w-[374px] maxi:m-auto max-w-[1500px]"
     >
       {user &&
         user.saved.map(

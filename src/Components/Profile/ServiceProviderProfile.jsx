@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../state";
+import { setRedirectpath, setUser } from "../../state";
 
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -28,11 +28,13 @@ const ServiceProviderProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
+
   const serviceProvidersFeed = useSelector(
     (state) => state.serviceProvidersFeed
   );
   const user = useSelector((state) => state.user);
-  console.log(user);
+  
   let isSaved = false;
   if (user) {
     isSaved = user.saved.some((service) => service._id === service_id);
@@ -54,6 +56,9 @@ const ServiceProviderProfile = () => {
         console.log(response.data);
         dispatch(setUser(response.data));
       } else if (!user) {
+        const path = window.location.pathname;
+        console.log(path);
+        dispatch(setRedirectpath(path))
         navigate("/auth");
       }
     } catch (error) {
@@ -82,42 +87,42 @@ const ServiceProviderProfile = () => {
     // eslint-disable-next-line
   }, []);
 
-  // const pageVariants = {
-  //   initial: {
-  //     opacity: 0,
-  //     x: "-100%",
-  //   },
-  //   animate: {
-  //     opacity: 1,
-  //     x: 0,
-  //     transition: {
-  //       duration: 0.5,
-  //     },
-  //   },
-  //   exit: {
-  //     opacity: 0,
-  //     x: "100%",
-  //   },
-  // };
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: "-100%",
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
 
   return (
     <motion.div
-    initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      // initial="initial"
-      // animate="animate"
-      // exit="exit"
-      // variants={pageVariants}
+    // initial={{ opacity: 0 }}
+    //   animate={{ opacity: 1 }}
+    //   exit={{ opacity: 0 }}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
       transition={{ type: "tween",duration:0.9 }}
-      className="md:flex p-4 gap-2 maxi:m-auto max-w-[1500px] min-w-[384px]"
+      className="lg:flex p-4 gap-2 maxi:m-auto max-w-[1500px] min-w-[374px]"
     >
       {/* Service Provider Profile  */}
       <div className="md:flex rounded-lg p-2 bg-white md:w-[75%]  ">
         <div className="flex flex-col space-y-3  w-full">
-          <div className="flex flex-col md:flex-row justify-center items-center  rounded-sm">
+          <div className="flex flex-col lg:flex-row justify-center items-center  rounded-sm">
             {/* Image  */}
-            <div className="md:w-[50%] flex flex-col justify-center items-center space-y-1  rounded-sm">
+            <div className="lg:w-[50%] flex flex-col justify-center items-center space-y-1  rounded-sm">
               {imageUrl ? (
                 <img
                   src={imageUrl}
@@ -136,7 +141,7 @@ const ServiceProviderProfile = () => {
               </p>
             </div>
             {/* Details[0]  */}
-            <div className="p-3 md:w-[50%] text-gray-700 text-xl rounded-sm  ">
+            <div className="p-3 lg:w-[50%] text-gray-700 text-xl rounded-sm  ">
               <p>
                 Experience:{" "}
                 <span className=" font-bold text-gray-900 ml-2">
@@ -151,7 +156,7 @@ const ServiceProviderProfile = () => {
             </div>
             <div className="flex flex-col justify-center space-y-3">
               <div className="text-center text-xl">Services</div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap sm:flex-nowrap overflow-scroll gap-2">
                 {details[0].profession &&
                   details[0].profession.map((field, i) => (
                     <div
@@ -172,7 +177,7 @@ const ServiceProviderProfile = () => {
             )}
             {/* Gallery Carousel */}
             {details[0].gallery.length !== 0 && (
-              <div className="h-[200px] md:w-[50%] md:m-auto">
+              <div className="h-[200px] lg:w-[50%] lg:m-auto">
                 <Carousel className="rounded-xl">
                   {galleryUrls &&
                     galleryUrls.map((url, i) => (

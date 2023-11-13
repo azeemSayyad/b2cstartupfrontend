@@ -7,7 +7,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black p-8 min-w-[384px]">
+    <footer className="bg-black p-8 min-w-[374px]">
       <div className="max-w-7xl mx-auto text-center text-white">
         <p className="text-lg sm:text-xl">Made with ❤️ by a bunch of friends</p>
         <div className="mt-4 flex flex-col items-center">

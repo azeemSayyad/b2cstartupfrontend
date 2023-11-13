@@ -115,7 +115,7 @@ const EditProfile = () => {
       exit="exit"
       variants={pageVariants}
       transition={{ type: "tween" }}
-      className=" md:flex maxi:m-auto max-w-[1500px] min-w-[384px] p-4 gap-1  "
+      className=" md:flex maxi:m-auto max-w-[1500px] min-w-[374px] p-4 gap-1  "
     >
       <div className="flex flex-col md:w-[25%] pt-5 md:h-screen  border border-black  space-y-4 bg-white rounded-lg">
         <div className="flex justify-center">
