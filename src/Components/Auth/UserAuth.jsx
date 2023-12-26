@@ -12,36 +12,115 @@ import { setLogin } from "../../state/index";
 import { Input } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 
+import { FaEyeSlash } from "react-icons/fa";
+import { MdRemoveRedEye } from "react-icons/md";
+
 const UserAuth = () => {
   const BACKEND_URL = process.env.REACT_APP_BACKEND;
   const [isSignUp, setIsSignUp] = useState(false);
   const [isForgot, setIsForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
+  
+  
+  
   const [errorMessage, setErrorMessage] = useState(null);
+  // const [nameValidationError, setNameValidationError] = useState(false);
+  // const [contactValidationError, setContactValidationError] = useState(false);
+  // const [passwordValidationError, setPasswordValidationError] = useState(false);
 
-  const redirectPath = useSelector(state=>state.redirectPath);
-
+  
+  const redirectPath = useSelector((state) => state.redirectPath);
+  
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
     password: "",
   });
+  
+  const [initialFormErrors] = useState({
+    name: false,
+    contact: false,
+    password: false,
+  });
+  
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  
+  const isFormValidate = formErrors.contact || formErrors.name || formErrors.password;
+
+  const resetFormErrors = () =>{
+    setFormErrors(initialFormErrors)
+  }
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const handleBlur = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === "contact" && value.length !== 10) {
+      setFormErrors({ ...formErrors, contact: true });
+    } else if (name === "password" && value.length !== 4) {
+      setFormErrors({ ...formErrors, password: true });
+
+    } else if (name === "name" && value.length < 2) {
+      setFormErrors({ ...formErrors, name: true });
+    } else {
+      // resetFormErrors();
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+
+    if (name === "contact") {
+      if (value.length === 10) {
+        setFormErrors({...formErrors,contact:false})
+      }else{
+        setFormErrors({...formErrors,contact:true})
+      }
+      const numericValue = value.replace(/\D/g, "");
+      setFormData({ ...formData, contact: numericValue });
+    }
+    
+    else if (name === "password") {
+      if (value.length === 4) {
+        setFormErrors({...formErrors,password:false})
+      }else{
+        setFormErrors({...formErrors,password:true})
+      }
+
+      const numericValue = value.replace(/\D/g, "");
+      setFormData({ ...formData, password: numericValue });
+    }
+    
+    else if (name === "name") {
+      console.log(value)
+      if (value.length >= 2) {
+        setFormErrors({...formErrors,name:false})
+      }
+      else {
+        setFormErrors({...formErrors,name:true})
+      }
+
+      setFormData({ ...formData, name: value });
+    }
+    
+    else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleLogin = async () => {
     try {
+      console.log("login");
       setIsLoading(true);
-      console.log(BACKEND_URL);
+
       const response = await axios.post(`${BACKEND_URL}/auth/login`, {
         contact: formData.contact,
         password: formData.password,
@@ -120,6 +199,7 @@ const UserAuth = () => {
     setErrorMessage(null);
     setIsSignUp(!isSignUp);
     setIsLoading(false);
+    resetFormErrors();
     resetForm();
   };
 
@@ -142,11 +222,14 @@ const UserAuth = () => {
   };
 
   return (
-    <motion.div initial="initial"
-    animate="animate"
-    exit="exit"
-    variants={pageVariants}
-    transition={{ type: "tween" }} className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5  max-w-[2400px] min-h-screen">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ type: "tween" }}
+      className=" bg-[#023e7d] w-full md:pt-[100px] pt-[50px] pb-5  max-w-[2400px] min-h-screen"
+    >
       <div className="m-auto lg:w-[50%] sm:w-[80%] w-[98%] md:rounded-[30px] bg-white  border space-y-3 p-4 border-black justify-center items-center  rounded-[15px] min-h-[50%]">
         <div className="flex space-y-3 flex-col justify-center items-center">
           <img
@@ -196,19 +279,41 @@ const UserAuth = () => {
                   name="name"
                   onChange={handleChange}
                   value={formData.name}
+                  onBlur={handleBlur}
+                  error={formErrors.name}
                 />
               )}
               <Input
                 label="Phone Number"
                 name="contact"
                 onChange={handleChange}
+                onBlur={handleBlur}
                 value={formData.contact}
+                error={formErrors.contact}
               />
               <Input
-                label={isForgot ? "New Password" : "Password"}
+                label={isForgot ? "New Password" : "Four digit Password"}
                 name="password"
+                icon={
+                  isShow ? (
+                    <FaEyeSlash
+                      className=" cursor-pointer"
+                      size={"20px"}
+                      onClick={() => setIsShow(!isShow)}
+                    />
+                  ) : (
+                    <MdRemoveRedEye
+                      className=" cursor-pointer"
+                      size={"20px"}
+                      onClick={() => setIsShow(!isShow)}
+                    />
+                  )
+                }
                 onChange={handleChange}
+                onBlur={handleBlur}
+                type={!isShow && "password"}
                 value={formData.password}
+                error={formErrors.password}
               />
             </div>
 
@@ -229,10 +334,11 @@ const UserAuth = () => {
             <div className="pb-4 ">
               <input
                 type="submit"
-                className="bg-[#023e7d] hover:bg-[#002855] w-full p-2 text-center text-white text-lg rounded-md hover:cursor-pointer"
+                className={`bg-[#023e7d] hover:bg-[#002855] w-full p-2 text-center text-white text-lg rounded-md ${!isFormValidate && "hover:cursor-pointer"}`}
                 value={
                   isSignUp ? "Register" : isForgot ? "Reset Password" : "login"
                 }
+                disabled={isFormValidate}
               />
             </div>
           </div>
