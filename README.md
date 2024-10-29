@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Articrafts
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Articrafts** is a self-thought MERN stack project designed to bridge the gap between service providers, such as tile contractors, carpenters, and more, and homeowners looking for reliable services. This platform allows service providers to showcase their skills and experience through profiles, while homeowners can search and choose providers based on their specific needs.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication**
+  - Secure login and registration for both service providers and homeowners.
 
-### `npm start`
+- **Service Provider Profiles**
+  - Service providers can create and manage their profiles.
+  - Profiles showcase work experience, uploaded images, and service information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Search Functionality**
+  - Homeowners can search for service providers based on specific services.
+  - Results can be filtered to find the most relevant providers.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Image and Gallery Management**
+  - Service providers can upload images of their work.
+  - Images are securely stored using AWS S3.
 
-### `npm test`
+- **Responsive Design**
+  - The application is fully responsive, ensuring optimal user experience across devices and screen sizes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **CRUD Operations**
+  - Providers can create, edit, and delete services directly from their profile dashboard.
 
-### `npm run build`
+## Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Frontend**: React with Tailwind CSS for UI design and Redux for state management.
+- **Backend**: Node.js with Express.js for server-side functionality.
+- **Database**: MongoDB for storing user, service, and image data.
+- **Image Storage**: AWS S3 for storing uploaded images.
+- **Routing**: AWS Route 53 for domain and routing management.
+- **Deployment**: AWS EC2 instances for scalable, reliable application hosting.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup and Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/articrafts.git
+   cd articrafts
+   ```
 
-### `npm run eject`
+2. **Install dependencies**:
+   ```bash
+   # Install backend dependencies
+   cd backend
+   npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   # Install frontend dependencies
+   cd ../frontend
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Configure Environment Variables**:
+   - Set up AWS credentials and other sensitive environment variables in the `.env` file.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Run the Application**:
+   ```bash
+   # Run backend
+   cd backend
+   npm start
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   # Run frontend
+   cd ../frontend
+   npm start
+   ```
 
-## Learn More
+## Future Improvements
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Enhanced Filtering**: Add additional filtering options for homeowners.
+- **Messaging System**: Direct messaging between homeowners and service providers.
+- **Ratings and Reviews**: Allow homeowners to rate and review providers.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Conclusion
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Articrafts connects skilled service providers with homeowners, making it easier to find and select the right professionals for the job. It’s a powerful, scalable solution, with a responsive design and robust search features to ensure a seamless experience across all devices.
