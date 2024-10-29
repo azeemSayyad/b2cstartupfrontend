@@ -34,37 +34,6 @@
 - **Routing**: AWS Route 53 for domain and routing management.
 - **Deployment**: AWS EC2 instances for scalable, reliable application hosting.
 
-## Setup and Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/articrafts.git
-   cd articrafts
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   # Install backend dependencies
-   cd backend
-   npm install
-
-   # Install frontend dependencies
-   cd ../frontend
-   npm install
-   ```
-
-3. **Configure Environment Variables**:
-   - Set up AWS credentials and other sensitive environment variables in the `.env` file.
-
-4. **Run the Application**:
-   ```bash
-   # Run backend
-   cd backend
-   npm start
-
-   # Run frontend
-   cd ../frontend
-   npm start
    ```
 
 ## Future Improvements
