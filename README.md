@@ -34,12 +34,6 @@
 - **Routing**: AWS Route 53 for domain and routing management.
 - **Deployment**: AWS EC2 instances for scalable, reliable application hosting.
 
-## Future Improvements
-
-- **Enhanced Filtering**: Add additional filtering options for homeowners.
-- **Messaging System**: Direct messaging between homeowners and service providers.
-- **Ratings and Reviews**: Allow homeowners to rate and review providers.
-
 ## Conclusion
 
 Articrafts connects skilled service providers with homeowners, making it easier to find and select the right professionals for the job. It’s a powerful, scalable solution, with a responsive design and robust search features to ensure a seamless experience across all devices.
