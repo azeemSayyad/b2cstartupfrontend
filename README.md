@@ -34,8 +34,6 @@
 - **Routing**: AWS Route 53 for domain and routing management.
 - **Deployment**: AWS EC2 instances for scalable, reliable application hosting.
 
-   ```
-
 ## Future Improvements
 
 - **Enhanced Filtering**: Add additional filtering options for homeowners.
